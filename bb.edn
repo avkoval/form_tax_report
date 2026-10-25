@@ -1,0 +1,8 @@
+{:paths ["src" "test"]
+ :tasks
+ {report {:doc  "Quarterly 5% single tax + military levy report: bb report 2026_3 [--all]"
+          :task (apply (requiring-resolve 'fop-tax.report/-main) *command-line-args*)}
+  test   {:doc  "Run unit tests"
+          :task (let [{:keys [fail error]} (do (require 'fop-tax.statement-test)
+                                               (clojure.test/run-tests 'fop-tax.statement-test))]
+                  (when (pos? (+ fail error)) (System/exit 1)))}}}
